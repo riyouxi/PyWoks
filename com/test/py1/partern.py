@@ -12,6 +12,7 @@ fileurl.write("csdn资源url*************\n\n")
 
 while num <2:
     url = 'http://download.csdn.net/user/eastmount/uploads/' + str(number)
+    #http: // blog.csdn.net / eastmount / article / details / 46986589
     fileurl.write('下载URL:'+url+'\n')
     print(url.encode('utf-8'))
     requst = urllib.request.Request(url)
