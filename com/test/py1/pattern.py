@@ -24,11 +24,12 @@ class QSBK:
         items = re.findall(pattern,pageCode)
         pageStroies = []
         for item in items:
+            #print(len(item))
             replaceBR = re.compile('<.?span>')
             text = re.sub(replaceBR,"\n",item[1])
-            pageStroies.append([item[0].strip(), text.strip(), item[2].strip()])
+            pageStroies.append([item[0].strip(), text.strip(), item[2].strip(),item[3].strip()])
 
-            print(pageStroies)
+            #print(pageStroies)
         return  pageStroies
 
     def loadPage(self):
@@ -38,6 +39,7 @@ class QSBK:
                 if pageStroies:
                     self.stories.append(pageStroies)
                     self.pageIndex+=1
+                    print("读取完成...")
 
     def getOneStroy(self,pageStories,page):
         for story in pageStories:
@@ -46,7 +48,7 @@ class QSBK:
             if inputStr =='Q':
                 self.enable = False
                 return
-            print("第%d页\t发布人:%s\t内容：%s"%(page,story[0],story[1]))
+            print("第%d页\t发布人:%s\t内容：%s点赞数：%s"%(page,story[0],story[1],story[3]))
 
     def start(self):
         print('正在读取糗事而百科段子。。。')
