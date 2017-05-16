@@ -48,11 +48,8 @@ while num <2:
         title = re.findall(res_title,obj)
         for t in title:
             print(type(t))
-           # t = t.encode('utf-8').decode('unicode_escape')
-            t = t .encode('').decode('unicode_escape')
+            t = t.encode('GBK').decode('unicode_escape')
             print(t)
-
-
 
     num = num+1
 
