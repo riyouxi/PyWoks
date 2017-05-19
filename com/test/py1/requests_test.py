@@ -25,19 +25,33 @@ class csdnSpider:
         return data
 
 
-    def getPage(self):
+    def getContent(self):
         req = urllib.request.Request(self.url,headers=self.headers)
         response = urllib.request.urlopen(req)
 
         data = response.read()
         data = self.unzip(data)
         data = data.decode('utf-8')
-        print(data)
+        return data
 
+    def getPage(self):
+        content = self.getContent()
         page = r'<div.*?pagelist">.*?<span>.*?共(.*?)页</span>'
-        pageNum = re.findall(page,data)
-        print(pageNum)
+        patter = re.compile(page, re.S)
+        pageNum = re.findall(patter, content)[0]
+        return pageNum
 
+    def readData(self):
+        content = self.getContent()
+        #
+        #<span class="link_view".*?</a>.*?(.*?)</span>
+        #<span class="link_postdate">(.*?)</span>
+        compilestr = '<span .*?title"><a href=".*?(.*?)">.*?(.*?)</a></span>.*?<span .*?postdate">(.*?)</span>.*?<span class="link_view".*?</a>.*?(.*?)</span>'
+        patter = re.compile(compilestr,re.S)
+        items = re.findall(patter,content)
+
+        for item in items:
+            print(item)
 
 csdn = csdnSpider(1)
-csdn.getPage()
+csdn.readData()
